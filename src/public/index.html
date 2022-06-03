@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
+    
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="/assets/vendor/js/helpers.js"></script>
+    <script src="/assets/js/config.js"></script>
+    <script src="/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/assets/vendor/js/bootstrap.js"></script>
+    <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    
+    <script src="/assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+    
+    <!-- Vendors JS -->
+    
+    <!-- Main JS -->
+    <script src="/assets/js/main.js"></script>
+    
+    <!-- Page JS -->
+    <script src="/assets/js/extended-ui-perfect-scrollbar.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="container flex-grow-1">
+            <div class="row min-vh-100 justify-content-center align-items-center">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-lg-6 mb-1 mb-xl-0">               
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">             
+                                           <!--  <label for="exampleDataList" class="form-label">Datalist example</label>
+                                            <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                                            <datalist id="datalistOptions">
+                                              <option value="San Francisco"></option>
+                                              <option value="New York"></option>
+                                              <option value="Seattle"></option>
+                                              <option value="Los Angeles"></option>
+                                              <option value="Chicago"></option>
+                                            </datalist> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label w-100"> Crear Playlist </label>
+                                            <div class="btn-group" role="group" aria-label="First group">
+                                                <button type="button" class="btn btn-outline-secondary" id="newplaylist">
+                                                <!--data-bs-toggle="modal"  data-bs-target="#modalCenter"-->
+                                                    <!--i class="tf-icons bx bx-bell"></i-->
+                                                    <!-- <i class='bx bxs-folder-plus'></i> -->
+                                                    <i class="bi bi-folder-plus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-outline-secondary" id="deleteplaylist">
+                                                    <i class='bx bx-trash'></i>
+                                                    <!--i class="tf-icons bx bx-task"></i-->
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-1 mb-xl-0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 mb-1 mb-xl-0">
+                                <small class="text-light fw-semibold"> PLaylist</small>
+                                <div class="demo-inline-spacing mt-1 overflow-hidden" id="playlists_section" style="height: 400px">
+                                    <div class="list-group ps ps--active-y">
+                                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 232px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 32px;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-1 mb-xl-0">
+                                <small class="text-light fw-semibold">Canciones</small>
+                                <div class="demo-inline-spacing mt-1 overflow-hidden" id="songs_section" style="height: 220px">
+                                    <div class="list-group list-group-flush ps ps--active-y">
+                                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 232px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 32px;"></div></div>
+                                    </div>
+                                </div>
+                                <audio id="playback_control" controls class="w-100"></audio>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <p class="mb-0">Por José Pablo Avendaño Pérez, Álvarez Vazquez Pablo de Jesús & Escobar Gutiérrez Ángel Gerardo</p>
+                        <p class="mb-0">App final - servicios web @copyright</p> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <!-- Button trigger modal -->
+        <!--button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
+          Launch modal
+        </button-->
+        <!-- Modal -->
+        <div class="modal fade" id="modalCenter" tabindex="-1" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col mb-3">
+                    <input type="hidden" id="playlistIdInmodal"/>
+                    <label for="playlist_name" class="form-label">Nombre</label>
+                    <input type="text" id="playlist_name" class="form-control" placeholder="Ingresa nombre">
+                  </div>
+                </div>
+                <div class="row g-2">
+                  <div class="col mb-3">
+                    <label for="playlist_description" class="form-label">Descripción</label>
+                    <input type="text" id="playlist_description" class="form-control" placeholder="Ingresa descripción">
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="demo-inline-spacing mt-1 overflow-hidden" id="newplaylist_section" style="height: 200px">
+                    <div class="list-group list-group-flush ps ps--active-y">
+                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 232px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 32px;"></div></div>
+                    </div>
+                        </div>
+                        <div class="d-flex justify-content-end w-100">
+                            <div class="button-wrapper" role="group">
+                                <label for="files" class="btn" tabindex="0">
+                                    <!--i class="bx bx-upload d-block d-sm-none"></i-->
+                                    <i class='bx bx-plus'></i>
+                                    <input type="file" id="files" name="files" class="account-file-input" hidden="" 
+                                    accept="audio/*" multiple>
+                                </label>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="row w-100">
+                    <div class="col-6">
+                        <div id="alertmsg_section"></div>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"> Close </button>
+                        <button type="button" class="btn btn-primary" id="upload" name="upload">Save changes</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="modal fade" id="modalSong" tabindex="-1" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalSongTitle">Editar datos de canción</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col mb-3">
+                      <input type="hidden" id="songId">
+                      <label for="title" class="form-label">Titulo</label>
+                      <input type="text" id="title" class="form-control" placeholder="Ingresa titulo:">
+                    </div>
+                  </div>
+                  <div class="row g-2">
+                    <div class="col-6 mb-3">
+                      <label for="artist" class="form-label">Artista</label>
+                      <input type="text" id="artist" class="form-control" placeholder="Ingresa artista:">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="album" class="form-label">Álbum</label>
+                        <input type="text" id="album" class="form-control" placeholder="Ingresa descripción">
+                      </div>
+                  </div>
+                  <div class="row g-2">
+                    <div class="col mb-3">
+                      <label for="year" class="form-label">Año</label>
+                      <input type="text" id="year" class="form-control" placeholder="Ingresa descripción">
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="row w-100">
+                      <div class="col-6">
+                          <div id="alertmsg_songSection"></div>
+                      </div>
+                      <div class="col-6">
+                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"> Close </button>
+                          <button type="button" class="btn btn-primary" id="update" name="update">Save changes</button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <script>
+
+        //variables de jquery
+        var btns = {
+            deletePlayList:{
+                isPressed:false
+            }
+        };
+        var modalcenter = $('#modalCenter');
+        var modalcenter2 = $('#modalSong');
+        var alertmsg = $('#alertmsg_section');
+        var alertmsg2 = $('#alertmsg_songSection');
+        var playlist_name =  $("#playlist_name");
+        var playlist_description = $("#playlist_description");
+        var newplaylist_section =  $('#newplaylist_section > .list-group');
+        var songs_section = $("#songs_section > .list-group");
+        var playlists_section = $("#playlists_section > .list-group");
+            
+        var songslist = [];        
+        var modal = new bootstrap.Modal(modalcenter); // initialized with defaults
+        var modalSong = new bootstrap.Modal(modalcenter2);
+
+        //events
+        $('#newplaylist').click(function(e) {
+            const params = {
+                title:'Crear nueva playlist',
+            };
+            createModal(params);
+        });
+        
+        $('#deleteplaylist').click(async function(e) {
+            var isPressed = btns.deletePlayList.isPressed;
+            if(!isPressed){
+                $("#playlists_section .list-group label input").each(function(){
+                    $(this).removeClass('d-none');
+                });
+                $(this).removeClass('btn-outline-secondary');
+                $(this).addClass('btn-danger');
+            }else{
+                var pressedchecks = [];
+                $("#playlists_section .list-group label").each(function(i, item){
+                    var check = $(this).find("input[type='checkbox']");
+                    check.addClass('d-none');
+                    if(check.is(':checked')){
+                        const playlistId = $(this).find("input[type='hidden']");
+                        pressedchecks.push(playlistId.val());
+                    }
+                });
+
+                await axios.post(`/api/server/delete/playlists/byIds`, {ids:pressedchecks})
+                .then(async res => {
+                    if(res.status == 200){
+                        showPlaylists();
+                    }
+                })
+                .catch((error) =>{
+                    console.log(error);
+                });
+                    
+                $(this).removeClass('btn-danger');
+                $(this).addClass('btn-outline-secondary');
+            }
+            btns.deletePlayList.isPressed = !isPressed;
+        });
+
+        $('#close').click(function(){
+            modalcenter.show('hide');
+            songslist = [];
+            playlist_name.val('');   
+            playlist_description.val(''); 
+            newplaylist_section.html('');
+        });
+
+        $('#files').change(function(e) {
+            songslist = e.target.files||[];
+            for(var i = 0; i<songslist.length;i++){
+                var item = 
+                `<label class="d-flex align-items-center list-group-item list-group-item-action">
+                    <input class="form-check-input me-1 d-none" type="checkbox" value="">
+                    <span class="w-50"> ${songslist[i].name} </span>
+                    <!--div class="d-flex justify-content-end w-50">
+                        <div class="btn-group" role="group">    
+                            <button type="button" class="btn" onClick="deleteSongById('`+'params'+`')">
+                               <i class='bx bx-trash'></i>
+                            </button>    
+                        </div>
+                    </div-->
+                </label>`;
+                newplaylist_section.append(item);
+            }
+        });
+
+        $('#upload').click(async function(e) {
+            const name = playlist_name.val();
+            const description = playlist_description.val();
+            const params = { name, description };
+            
+            const playlistId = $('#playlistIdInmodal').val(); 
+            if(name.length){
+                var addedPlaylist = null;
+                if(playlistId!=null&&playlistId!='')
+                    addedPlaylist = await updatePlaylist(playlistId, params);
+                else{
+                    addedPlaylist = await createPlaylist(params);
+                }
+                   
+                if(addedPlaylist.status == 200){
+                    $('#alertmsg_section').html(`<div class="alert alert-success mb-0 text-center" role="alert">${addedPlaylist.message}</div>`);
+                }else{
+                    $('#alertmsg_section').html(`<div class="alert alert-danger mb-0 text-center"  role="alert">${addedPlaylist.message}</div>`);
+                    return;
+                }
+
+                if(songslist.length>0){
+                    for(const file of songslist){
+                        var song = {                    
+                            'title':file.name,
+                            'size':file.title,
+                            'mimetype':file.type,
+                            'playlist_id':addedPlaylist.data._id,
+                            'extension':file.name.slice(file.name.lastIndexOf('.'))
+                        }
+                        const addedSong = await addSong(addedPlaylist.data._id, song);
+                    
+                        showSongs(addedPlaylist.data._id);
+                    
+                        var formData = new FormData(); 
+                        formData.set('filename',addedSong.data._id);
+                        formData.set('file',file);
+                    
+                        const path = addedPlaylist.data._id;
+                        const uploadfile = await upload(path, formData);
+                    
+                    }
+                }
+              
+                showPlaylists();
+            }
+        });
+        
+        $('#update').click(function(){
+            const songId = $('#songId').val();
+            const title = $('#title').val();
+            const artist = $('#artist').val();
+            const album = $('#album').val();
+            const year = $('#year').val();
+            const response = updateSongById(songId,{ title, artist, album, year});
+        });
+
+        modalcenter.on("hidden.bs.modal", function () {
+            // Aquí va el código a disparar en el evento
+            console.log("cerro modal 1");
+            songslist = [];
+            playlist_name.val('');   
+            playlist_description.val(''); 
+            newplaylist_section.html('');
+        });
+        
+        modalcenter2.on("hidden.bs.modal", function () {
+            // Aquí va el código a disparar en el evento
+            console.log("cerro modal 2");
+            $('#modalSongTitle').html('');    
+            $('#songId').val();
+            $('#title').val();
+            $('#artist').val();
+            $('#album').val();
+            $('#year').val();
+            
+        });
+
+        //functions
+        function addSong(id, song){
+            return new Promise((resolve, reject) => {
+                axios.post(`/api/server/add/song/byPlaylistId/${id}`, {song})
+                .then(async res => {
+                    const response = res.data; 
+                    if(res.status == 200){
+                        resolve({message:'Se guardó el archivo en la base de datos', status:200, data:response.result});
+                    }else   
+                        resolve({message:'No se pudo guardar este archivo', status:203, data:null});
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            });
+        }
+        
+        function createPlaylist(params){
+            return new Promise((resolve, reject) => {
+                axios.post('/api/server/create/playlist', { params })
+                .then(async res => {
+                    const response = res.data;
+                    if(res.status == 200){
+                        resolve({message:response.message, status:200, data:response.result});
+                    }else
+                        resolve({message:response.message, status:203, data:null});
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            });
+        }
+        
+        function updatePlaylist(id, playlist){
+            return new Promise((resolve, reject) => {
+                axios.put(`/api/server/update/playlist/byId/${id}`, {playlist})
+                .then(async res => {
+                    const response = res.data; 
+                    if(res.status == 200){
+                        resolve({message:response.message, status:200, data:response.result});
+                    }else   
+                        resolve({message:response.message, status:203, data:null});
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            });
+        }
+        
+        function updateSongById(id, song){
+            return new Promise((resolve, reject) => {
+                axios.put(`/api/server/update/song/byId/${id}`, {song})
+                .then(async res => {
+                    const response = res.data; 
+                    if(res.status == 200){
+                        resolve({message:response.message, status:200, data:response.result});
+                    }else   
+                        resolve({message:response.message, status:203, data:null});
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            });
+        }
+        
+        function upload(id, file){
+            return new Promise((resolve, reject) => {
+                axios.put(`/api/server/uploadfile/${id}`, file, {
+                    headers : {
+                        'Accept':'application/json',
+                        'content-type': 'multipart/form-data'
+                    }  
+                })
+                .then(async res => {
+                    const response = res.data; 
+                    if(res.status == 200){
+                        resolve({message:response.message, status:200});
+                    }else   
+                        resolve({message:response.message, status:203});
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            });
+       
+        }
+        
+        function createModal(params={}){        
+            $("#modalCenterTitle").html(params.title);
+            alertmsg.html('');
+            modal.show();  
+        }
+        
+        async function createModalSong(params={}){
+            const keys = params.split(':');
+            const response = await getSongById(keys[0]);
+            alertmsg2.html('');
+            const song = response.data;
+            if(response.status!=200){        
+                alertmsg2.html(`<div class="alert alert-danger mb-0 text-center"  role="alert">${response.message}</div>`);
+            }else{
+                $('#modalSongTitle').html('<p> Metadatos de canción </p>');    
+                $('#songId').val(song._id);
+                $('#title').val(song.title);
+                $('#artist').val(song.artist);
+                $('#album').val(song.album);
+                $('#year').val(song.year);
+                modalSong.show();
+            }
+        }
+
+        function play(src){
+            var music = $('#playback_control')[0];
+            music.src = src;
+            music.play();    
+        }
+
+        async function showPlaylists(){
+            playlists_section.html('');
+            songs_section.html('');
+
+            const response = await getAllPlaylists();
+            
+            const playlists = response.data;
+            
+            if(response.status!=200)
+                return
+            
+            for(const playlist of playlists){
+                const item = `<label class="d-flex align-items-center list-group-item list-group-item-action" onClick="controller_playlist('`+playlist._id+`')">
+                                    <input class="form-check-input me-1 d-none" type="checkbox">
+                                    <input value="`+playlist._id+`" type="hidden"/>
+                                    <span style="margin-left:4px;" class="w-50"> ${playlist.name} </span>
+                                    <div class="d-flex justify-content-end w-50">
+                                        <div class="btn-group" role="group">
+                                            <!--button type="button" class="btn btn-primary">
+                                                <i class='bx bx-plus'></i>
+                                            </button-->    
+                                            <button type="button" class="btn">
+                                                <i class='bx bx-play'></i>
+                                            </button>
+                                            <button type="button" class="btn" onClick="editPlaylistById('`+playlist._id+`')">
+                                                <i class='bx bx-edit-alt' ></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                  </label>`;
+                playlists_section.append(item);
+            }   
+            showSongs(playlists[0]._id);
+        }
+
+        function controller_playlist(playlist_id){
+            const item = $(this.event.target);
+            if(!item.is('button') && !item.is('i') && !item.is('input')){
+                showSongs(playlist_id);
+            }
+        }
+
+        async function editPlaylistById(id){
+            const params = await getPlaylistById(id);
+            const songs = params.data.songs;
+            const playlist = params.data.playlist;
+
+            playlist_name.val(playlist.name);
+            playlist_description.val(playlist.description);
+            
+            for(var i = 0; i<songs.length;i++){
+                var item = 
+                `<label class="list-group-item list-group-item-action">
+                    <input class="form-check-input me-1 d-none" type="checkbox" value="">
+                    <span> ${songs[i].title} </span>
+                </label>`;
+                newplaylist_section.append(item);
+            }
+            const title = 'Editar datos de playlist';
+            
+            $('#playlistIdInmodal').val(playlist._id);           
+            
+            createModal({title});
+        }
+
+        async function showSongs(playlistId){
+            songs_section.html('');
+            const response = await getPlaylistById(playlistId);
+            if(response.status!=200)
+                return
+
+            const songs = response.data.songs;
+            for(const song of songs){
+                const path = song.src+song._id+song.extension; 
+                //const params = (JSON.stringify(song)).replaceAll('"',"'");
+                const params = song._id+":"+playlistId;
+                
+                const item = `<label class="d-flex align-items-center list-group-item list-group-item-action">
+                                 <input class="form-check-input me-1 d-none" type="checkbox" value="">
+                                 <span style="margin-left:4px;" class="w-50"> ${song.title} </span>
+                                 <div class="d-flex justify-content-end w-50">
+                                     <div class="btn-group" role="group">     
+                                         <button type="button" class="btn" onClick="play('`+path+`')">
+                                            <i class='bx bx-play'></i>
+                                         </button>
+                                         <button type="button" class="btn" onClick="createModalSong('`+params+`')">
+                                            <i class='bx bx-edit-alt' ></i>
+                                         </button>
+                                         <button type="button" class="btn" onClick="deleteSongById('`+params+`')">
+                                            <i class='bx bx-trash'></i>
+                                         </button>
+                                     </div>
+                                 </div>
+                             </label>`;
+                songs_section.append(item);
+            }
+        }
+        
+        function deleteSongById(keys){
+            const songId = keys.split(':')[0];
+            const playlistId = keys.split(':')[1];
+            axios.delete(`/api/server/delete/song/byId/${songId}`)
+            .then(async res => {
+                const response = res.data; 
+                if(res.status == 200){
+                    showSongs(playlistId);
+                }   
+            })
+            .catch(error => {
+            console.log(error);
+            });
+        }
+
+        function getSongById(id){
+            return new Promise((resolve, reject) => {
+                axios.get(`/api/server/get/song/byId/${id}`)
+                .then(async res => {
+                    const response = res.data; 
+                    if(res.status == 200){
+                        resolve({message:response.message, status:200, data:response.result});
+                    }else   
+                        resolve({message:response.message, status:203, data:null});
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            });
+        }
+
+        async function getAllPlaylists(){
+            return new Promise((resolve, reject) => {
+                axios.get('/api/server/getall/playlists')
+                .then(async res => {
+                    const response = res.data;
+                    if(res.status == 200){
+                        if(response.result.length>0)
+                            resolve({message:'Datos conseguidos', status:200, data:response.result});
+                        else
+                            resolve({message:'No hay ninguna playlist guardada', status:203, data:response.result});
+                    }else
+                        resolve({message:response.message, status:203, data:null});
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            });
+        }
+
+        function getPlaylistById(id){
+            return new Promise((resolve, reject) => {
+                axios.get(`/api/server/get/playlist/byId/${id}`)
+                .then(async res => {
+                    const response = res.data; 
+                    if(res.status == 200){
+                        resolve({message:response.message, status:200, data:response.data});
+                    }else   
+                        resolve({message:response.message, status:203, data:null});
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            });
+        }
+        
+        showPlaylists();
+       
+    </script>
+</body>
+</html>
